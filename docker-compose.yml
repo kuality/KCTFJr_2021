@@ -70,8 +70,6 @@ services:
       - MYSQL_USER="kuality"
       - MYSQL_PASSWORD="kuality"
       - MYSQL_DATABASE="basic_sql"
-    volumes:
-      - ./web/basic_sql/mysql:/var/lib/mysql
     links:
       - basic_sql
       - basic_sql:webserver
