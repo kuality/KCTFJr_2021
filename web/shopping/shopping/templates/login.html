@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KCTFjr</title>
+</head>
+<body>
+<div class="container">
+            <div class="row mt-5">
+                <h1>Welocme to KCTFjr Shopping!!</h1>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <form method="POST" class="/" autocomplete="off">
+                        {{form.csrf_token}}
+                        <div class="form-group">
+                            {{form.userid.label("아이디")}}
+                            {{form.userid(class="form-control", placeholder="아이디")}}
+
+                        </div>
+                        <div class="form-group">
+                            {{form.password.label("비밀번호")}}
+                            {{form.password(class="form-control", placeholder="비밀번호")}}
+                        </div>
+                        <div>
+                            {%if form.userid.errors%}
+                            {{form.userid.errors.0}}
+                            {%endif%}
+                            {%if form.password.errors%}
+                            {{form.password.errors.0}}
+                            {%endif%}
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">로그인</button>
+                        <button type="button" onclick="location.href='/register'">회원가입</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+{%with messages = get_flashed_messages()%}
+  {%if messages %}
+    <script type="text/javascript">
+      alert("{{messages[0]}}");
+    </script>
+    {%endif%}
+  {%endwith%}
+</body>
+</html>

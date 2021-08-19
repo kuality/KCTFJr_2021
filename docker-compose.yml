@@ -1,0 +1,96 @@
+version: "2"
+
+services:
+  flask:
+    build:
+      context: ./web/flask
+      dockerfile: ./Dockerfile
+    user: kctf
+    restart: always
+    ports:
+      - "12301:8000"
+    volumes:
+      - ./web/flask/deploy:/app
+
+  picshell:
+    build:
+      context: ./web/picshell
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "12305:80"
+  genius:
+    build:
+      context: ./misc/genius
+      dockerfile: ./Dockerfile
+    ports:
+      - "12302:8000"
+
+  hye0ngseok:
+    build:
+      context: ./misc/hye0ngseok
+      dockerfile: ./Dockerfile
+    ports:
+      - "12303:8000"
+
+  canary_cousin:
+    build:
+      context: ./pwn/canary_cousin
+      dockerfile: ./Dockerfile
+    ports:
+      - "12306:8000"
+
+  fbi:
+    build:
+      context: ./pwn/fbi
+      dockerfile: ./Dockerfile
+    ports:
+      - "12307:8000"
+
+  stage:
+    build:
+      context: ./pwn/stage
+      dockerfile: ./Dockerfile
+    ports:
+      - "12308:8000"
+
+  basic_sql:
+    build:
+      context: ./web/basic_sql
+      dockerfile: ./Dockerfile
+    ports:
+      - "12309:80"
+
+  db:
+    image: mariadb:10.4.20
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD="whcldnjsaktwlq"
+      - MYSQL_USER="kuality"
+      - MYSQL_PASSWORD="kuality"
+      - MYSQL_DATABASE="basic_sql"
+    volumes:
+      - ./web/basic_sql/mysql:/var/lib/mysql
+    links:
+      - basic_sql
+      - basic_sql:webserver
+    ports:
+      - "3306:3306"
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+
+  shopping:
+    build:
+      context: ./web/shopping
+      dockerfile: ./Dockerfile
+    ports:
+      - "12310:80"
+
+
+# networks:
+#     default:
+#     internal:
+#         internal: true
+
+networks:
+  internal:
+    driver: bridge

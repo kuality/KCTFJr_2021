@@ -1,0 +1,68 @@
+body{
+    display: flex;
+    margin:0%;
+    flex-direction: column;
+}
+
+header{
+    height:75px;
+    background-color:#00BFFF;
+    border: 1px solid #E0FFFF;
+    flex: auto;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+}
+
+main{
+    flex: auto;
+}
+
+h1{
+    color: white;
+    line-height: 50px;
+    float: left;
+    margin-left: 30px;
+}
+
+.menu{
+    margin-left:70%;
+    position: fixed;
+
+}
+.menu li{
+    float: left;
+
+}
+.menu a{
+    line-height:50px;
+    color: white;
+    padding: 0 15px;
+    display: block;
+    float: right;
+}
+
+/* *{
+    margin: 0;
+    padding: 0;
+} */
+
+li{
+    list-style: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+.nav{
+    width: 1170px;
+    margin: 0;
+    position: fixed;
+}
+
+.upload{
+    flex: auto;
+    margin: 5%;
+}

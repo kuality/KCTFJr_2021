@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>KCTFjr Shopping</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main_page.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+
+{%with messages = get_flashed_messages()%}
+  {%if messages %}
+    <script type="text/javascript">
+      alert("{{messages[0]}}");
+    </script>
+    {%endif%}
+  {%endwith%}
+
+    <header>
+        <div class="nav">
+            <h1>KCTFjr Shopping</h1>
+            <div>
+            <ul class="menu1">
+                <li>{{userid}}님 환영합니다.</li>
+                <li>당신의 포인트 : {{point}}</li>
+            </ul>
+        </div>
+        <ul class="menu">
+            <li><a href="/main_page">Home</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/logout">Logout</a></li>
+        </ul>
+        </div>
+    </header>
+    
+    <main>
+
+<div>
+            <table border="0" class="table" style="float:center" >
+        <tr>
+            <td>몬스터</td>
+            <td>포카리스웨트</td>
+            <td>크림빵</td>
+            <td>삼다수</td>
+            <td>삼각김밥</td>
+            <td>FLAG</td>
+        </tr>
+                <tr>
+                <td><img width="190" height="190" src="{{ url_for('static', filename='image/monster.png') }}"></td>
+                <td><img width="190" height="190" src="{{ url_for('static', filename='image/pocari.jpg') }}"></td>
+                    <td><img width="190" height="190" src="{{ url_for('static', filename='image/creambun.jpg') }}"></td>
+                    <td><img width="190" height="190" src="{{ url_for('static', filename='image/samdasu.jpg') }}"></td>
+                    <td><img width="190" height="190" src="{{ url_for('static', filename='image/kimbamp.jpg') }}"></td>
+                    <td><img width="190" height="190" src="{{ url_for('static', filename='image/flag.jpg') }}"></td>
+                </tr>
+                <tr>
+                    <td>2,900원</td>
+                    <td>1,400원</td>
+                    <td>900원</td>
+                    <td>950원</td>
+                    <td>1,000원</td>
+                    <td>9,999,999원</td>
+                </tr>
+                <tr>
+                 <td>
+                     <form method='GET' action="/PayProcess">
+                         <input type="hidden" name="num" value="1">
+                         <button type="submit" class="btn btn-primary">구매</button>
+                    </form>
+                 </td>
+                    <td>
+                     <form method='GET' action="/PayProcess">
+                         <input type="hidden" name="num" value="2">
+                         <button type="submit" class="btn btn-primary">구매</button>
+                    </form>
+                 </td>
+                    <td>
+                     <form method='GET' action="/PayProcess">
+                         <input type="hidden" name="num" value="3">
+                         <button type="submit" class="btn btn-primary">구매</button>
+                    </form>
+                 </td>
+                    <td>
+                     <form method='GET' action="/PayProcess">
+                         <input type="hidden" name="num" value="4">
+                         <button type="submit" class="btn btn-primary">구매</button>
+                    </form>
+                 </td>
+                    <td>
+                     <form method='GET' action="/PayProcess">
+                         <input type="hidden" name="num" value="5">
+                         <button type="submit" class="btn btn-primary">구매</button>
+                    </form>
+                 </td>
+                    <td>
+                     <form method='GET' action="/PayProcess">
+                         <input type="hidden" name="num" value="6">
+                         <button type="submit" class="btn btn-primary">구매</button>
+                    </form>
+                 </td>
+                </tr>
+            </table>
+            <!-- <div><a href="/board_confirm">문의내용 확인하기</a> </div> -->
+        </div>
+    </main>
+</body>
+</html>

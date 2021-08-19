@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="upload.css">
+    </head>
+    <header>
+        <div class="nav">
+            <h1>PicShell</h1>
+            <nav>
+                <ul class="menu">
+                    <li><a href="picshell.html">Home</a></li>
+                    <li><a href="upload.html">Upload</a></li>
+                    <li><a href="list.html">List</a></li>
+                    <li><a href="">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <body>
+    <div class="list">
+        <?php
+        $directory = './upload/';
+        $scanned_directory = array_diff(scandir($directory), array('..', '.', 'index.html'));
+        foreach ($scanned_directory as $key => $value) {
+            echo "<li><a href='{$directory}{$value}'>".$value."</a></li><br/>";
+        }
+
+        ?>
+    </div>
+    </body>
+</html>

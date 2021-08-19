@@ -1,0 +1,12 @@
+service pwn
+{
+    disable = no
+    type        = UNLISTED
+    wait        = no
+    server      = /home/pwn/run.sh
+    socket_type = stream
+    protocol    = tcp
+    user        = pwn
+    port        = 8000
+    flags       = REUSE
+}
