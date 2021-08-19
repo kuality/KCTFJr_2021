@@ -9,8 +9,6 @@ services:
     restart: always
     ports:
       - "12301:8000"
-    volumes:
-      - ./web/flask/deploy:/app
 
   picshell:
     build:
@@ -62,7 +60,10 @@ services:
       - "12309:80"
 
   db:
-    image: mariadb:10.4.20
+    build:
+      context: ./web/basic_sql/mysql
+      dockerfile: ./Dockerfile
+    #image: mariadb:10.4.20
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD="whcldnjsaktwlq"
@@ -83,8 +84,13 @@ services:
       context: ./web/shopping
       dockerfile: ./Dockerfile
     ports:
-      - "12310:80"
-
+      - "12310:8000"
+  cdc:
+    build:
+      context: ./pwn/cdc
+      dockerfile: ./Dockerfile
+    ports:
+      - "12311:8000"
 
 # networks:
 #     default:

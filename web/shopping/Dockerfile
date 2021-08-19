@@ -1,7 +1,7 @@
 FROM python:3.8
 
 ENV user kctf
-ENV port 80
+ENV port 8000
 
 RUN apt-get update -y
 RUN apt-get install -y python3
@@ -17,5 +17,5 @@ RUN chmod 755 /home/kctf
 RUN touch /home/kctf/Shopping.sqlite
 RUN chmod 664 /home/kctf/Shopping.sqlite
 
-ENTRYPOINT ["python"]
+#ENTRYPOINT ["python"]
 CMD ["python","main.py"]
