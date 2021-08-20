@@ -20,7 +20,8 @@ RUN apt-get install -y php5.6-mysqli
 RUN echo AddType application/x-httpd-php .php .phtml .html .htm >> /etc/apache2/mods-enabled/mime.conf
 
 RUN mkdir /var/www/html/upload
-RUN chmod 774 /var/www/html/upload
+RUN chmod 777 /var/www/html/upload
+RUN chown -R picshell:picshell /var/www/html/upload
 
 COPY ./deploy/* /var/www/html/
 
