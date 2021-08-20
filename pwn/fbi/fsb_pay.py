@@ -1,7 +1,7 @@
 from pwn import*
 context.log_level = 'debug'
-
-p = process("./FBI")
+p = remote("ctf.kuality.kr", 12307)
+#p = process("./FBI")
 e = ELF("./FBI")
 vuln = 0x080493bf
 

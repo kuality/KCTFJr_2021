@@ -1,0 +1,50 @@
+version: "2"
+
+services:
+  flask:
+    build:
+      context: ./flask
+      dockerfile: ./Dockerfile
+    user: kctf
+    restart: always
+    ports:
+      - "12301:8000"
+
+  picshell:
+    build:
+      context: ./picshell
+      dockerfile: ./Dockerfile
+    restart: always
+    ports:
+      - "12305:80"
+  basic_sql:
+    build:
+      context: ./basic_sql
+      dockerfile: ./Dockerfile
+    ports:
+      - "12309:80"
+
+  db:
+    build:
+      context: ./basic_sql/mysql
+      dockerfile: ./Dockerfile
+    #image: mariadb:10.4.20
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD="whcldnjsaktwlq"
+      - MYSQL_USER="kuality"
+      - MYSQL_PASSWORD="kuality"
+      - MYSQL_DATABASE="basic_sql"
+    links:
+      - basic_sql
+      - basic_sql:webserver
+    ports:
+      - "3306:3306"
+    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]
+
+  shopping:
+    build:
+      context: ./shopping
+      dockerfile: ./Dockerfile
+    ports:
+      - "12310:8000"

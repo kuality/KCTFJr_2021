@@ -1,0 +1,16 @@
+version: "2"
+
+services:
+  genius:
+    build:
+      context: ./genius
+      dockerfile: ./Dockerfile
+    ports:
+      - "12302:8000"
+
+  hye0ngseok:
+    build:
+      context: ./hye0ngseok
+      dockerfile: ./Dockerfile
+    ports:
+      - "12303:8000"
