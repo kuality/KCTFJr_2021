@@ -47,4 +47,4 @@ services:
       context: ./shopping
       dockerfile: ./Dockerfile
     ports:
-      - "12310:8000"
+      - "12310:9000"

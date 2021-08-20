@@ -170,8 +170,13 @@ def admin_page():
         usertable.email = form.data.get('email')
         usertable.password = form.data.get('password')
         usertable.point = form.data.get('point')
-        db_session.add(usertable)
-        db_session.commit()
+        try:
+            db_session.add(usertable)
+            db_session.commit()
+        except exc.IntegrityError as e:
+            db_session.rollback()
+            flash('아이디 또는 이메일 중복입니다!')
+            return redirect('/admin_page')
         flash('회원가입 성공!')
         return redirect('/main_page')
 
@@ -210,4 +215,4 @@ if __name__ == "__main__":
     db.app = app
     db.create_all()
 
-    app.run(host="0.0.0.0", port=8000, debug=False)
+    app.run(host="0.0.0.0", port=9000, debug=True)

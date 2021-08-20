@@ -40,6 +40,9 @@
                             {{form.point(class="form-control", placeholder="포인트")}}
                         </div>
                         <button type="submit" class="btn btn-primary">제출</button>
+                        {% if form.errors %}
+                          <p class="error"> 비밀번호를 다시 입력해주세요!</p>
+                         {% endif %}
                 </form>
 
             </div>
