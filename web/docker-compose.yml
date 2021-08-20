@@ -48,3 +48,12 @@ services:
       dockerfile: ./Dockerfile
     ports:
       - "12310:9000"
+  web_mecro:
+    build:
+      context: ./shopping/web_mecro
+      dockerfile: ./Dockerfile
+    ports:
+      - "12313:5000"
+    links:
+      - shopping
+      - shopping:webserver

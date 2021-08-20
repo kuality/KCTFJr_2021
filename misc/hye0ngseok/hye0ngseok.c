@@ -71,6 +71,6 @@ int main() {
             }
         }
     }
-        printf("hye0ngseok is down! The FLAG is KCTFjr{METE0R_the_9i4nt_METE0R}");
+        printf("hye0ngseok is down! The FLAG is KCTF{METE0R_the_9i4nt_METE0R}");
         sleep(10);
 }
