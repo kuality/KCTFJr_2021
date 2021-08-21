@@ -8,8 +8,10 @@ def main():
     print('We learned that addition has higher priority than multiplication.')
     print('then, can you solve the math problems with the formula?')
 
+    a = 0
     for i in range(3,100,2):
-        print(f"ROUND {i//3}!!")
+        a+=1
+        print(f"ROUND {a}!!")
 
         text = ""
         for j in range(i):
