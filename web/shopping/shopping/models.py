@@ -26,8 +26,9 @@ class Contact(db.Model):
     __tablename__ = "user_context"
 
     id = db.Column(db.Integer, primary_key=True)
-    userid = db.Column(db.String(32), nullable=False)
+    name = db.Column(db.String(32), nullable=False)
     context = db.Column(db.Text)
+    userid = db.Column(db.String(32), nullable=False)
 User.__table__.create(bind=engine, checkfirst=True)
 
 

@@ -1,7 +1,7 @@
 import os
 from flask import *
 from forms import *
-from sqlalchemy import asc,exc
+from sqlalchemy import desc,exc
 from models import db
 
 app = Flask(__name__)
@@ -38,9 +38,10 @@ def register():
             db_session.add(usertable)
             db_session.commit()
         except exc.IntegrityError as e:
+            db_session.rollback()
             flash('아이디 또는 이메일 중복입니다!')
             return redirect('/register')
-            db_session.rollback()
+
 
         flash('회원가입 성공!')
         return redirect('/')
@@ -113,6 +114,9 @@ def PayProcess():
     if init_point < 0:
         flash("No hack...")
         return redirect('/logout')
+    elif init_point is None:
+        flash("No hack...")
+        return redirect('/logout')
     query.point = init_point
     db_session.commit()
     session['point'] = init_point
@@ -129,26 +133,28 @@ def contact():
     if session_userid is None:
         flash("Plz...login..")
         return redirect('/')
-    if request.method == "POST":
-        userid = request.form.get('userid')
+    if request.method == "GET":
+        return render_template('contact.html', userid = session_userid)
+    elif request.method == "POST":
+        name = request.form.get('name')
         context = request.form.get('context')
-        if not(userid and context):
+        if not(name and context):
             flash("둘다 채워주세요!")
             return redirect('/contact')
         else:
             contact = Contact()
-            contact.userid = userid
+            contact.name = name
             contact.context = context
+            contact.userid = session_userid
             try:
                 db_session.add(contact)
                 db_session.commit()
                 flash('문의 내용이 전송 됬습니다.')
-                print("새로운 문의가 올라왔습니다.")
             except:
                 db_session.rollback()
                 raise
             return redirect('/main_page')
-    return render_template('contact.html',userid = session_userid)
+    return render_template('contact.html', userid = session_userid)
 @app.route('/admin_page', methods=['GET','POST'])
 
 def admin_page():
@@ -159,18 +165,22 @@ def admin_page():
     db = db_session.query(User).filter(User.userid == "5up3rU53r").first()
 
     form = Admin_RegisterForm()
-    if userid == db.userid:
-        flash("환영합니다 관리자님")
-    else:
-        flash("권한이 없습니다!")
-        return redirect('/main_page')
     if request.method == "POST":
         usertable = User()
         usertable.userid = form.data.get('userid')
         usertable.email = form.data.get('email')
         usertable.password = form.data.get('password')
-        usertable.point = form.data.get('point')
+        if form.data.get('point') < 99999999999:
+            usertable.point = form.data.get('point')
+        else:
+            flash("No Big Point!")
+            return redirect('/main_page')
         try:
+            if userid == db.userid:
+                flash("환영합니다 관리자님")
+            else:
+                flash("권한이 없습니다!")
+                return redirect('/main_page')
             db_session.add(usertable)
             db_session.commit()
         except exc.IntegrityError as e:
@@ -189,12 +199,18 @@ def board_confirm():
     if userid is None:
         flash("Plz...login..")
         return redirect('/')
-    list = Contact.query.order_by(asc(Contact.id))
+    list = Contact.query.filter_by(userid=userid).order_by(desc(Contact.id))
     return render_template('board_confirm.html', list=list)
 @app.route('/board/article/<int:id>/')
 def board_contents(id):
+    session_userid = session.get('userid', None)
+    codb = db_session.query(Contact).filter(Contact.id == id).first()
     article = Contact.query.get_or_404(id)
-    return render_template('board_view.html', article=article)
+    if session_userid == "5up3rU53r" or session_userid == codb.userid:
+        return render_template('board_view.html', article=article)
+    else:
+        return redirect('/board_confirm')
+
 
 @app.route('/robots.txt')
 def robot_to_root():

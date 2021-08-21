@@ -16,12 +16,15 @@
             <br><br>
 <form method="POST" action="/contact">
                 <div class="form-group">
-                    <label for="userid">아이디</label>
-                    <input type="text" class="form-control" id="userid" placeholder="아이디" name="userid"/>
+                    <label for="name">아이디</label>
+                    <input type="text" class="form-control" id="name" placeholder="제목" name="name"/>
                 </div>
                 <div class="form-group">
                     <label for="context">문의내용</label>
                     <input type="context" class="form-control" id="context" placeholder="문의내용" name="context"/>
+                </div>
+                <div class="form-group">
+                    <input type="hidden" value={{userid}}/>
                 </div>
     <button type="button" class="btn btn-primary" onclick="location.href='/main_page'">이전</button>
     <button type="submit" class="btn btn-primary">제출</button>

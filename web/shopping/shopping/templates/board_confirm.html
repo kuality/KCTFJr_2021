@@ -16,7 +16,7 @@
   {% if list %}
     <ul>
     {% for Contact in list %}
-        <li><a href="/board/article/{{ Contact.id }}/">{{ Contact.userid }}</a></li>
+        <li><a href="/board/article/{{ Contact.id }}/">{{Contact.name}}</a></li>
     {% endfor %}
     </ul>
 {% else %}
