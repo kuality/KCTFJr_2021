@@ -1,0 +1,11 @@
+version: "2"
+
+services:
+  flask:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    user: kctf
+    restart: always
+    ports:
+      - "12301:8000"

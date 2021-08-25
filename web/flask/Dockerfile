@@ -15,9 +15,8 @@ COPY ./flag /flag
 
 RUN chmod 111 /flag
 RUN chown -R kctf:kctf /app
-
+RUN chown -R kctf:kctf /flag
 USER $user
 EXPOSE $port
 
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+CMD ["python3","app.py"]
